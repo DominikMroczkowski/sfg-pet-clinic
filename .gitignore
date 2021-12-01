@@ -42,3 +42,7 @@ hs_err_pid*
 
 # eclipse
 .eclipse/
+.factorypath
+.project
+.classpath
+.settings/
