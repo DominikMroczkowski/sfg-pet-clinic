@@ -1,28 +1,47 @@
 package dominikmroczkowski.sfgpetclinic.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Pet {
-	public PetType getPetType() {
-		return petType;
-	}
-	public void setPetType(PetType petType) {
-		this.petType = petType;
-	}
-	public Owner getOwner() {
-		return owner;
-	}
-	public void setOwner(Owner owner) {
-		this.owner = owner;
-	}
-	public LocalDate getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(LocalDate birthday) {
-		this.birthday = birthday;
-	}
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@Table(name = "pets")
+public class Pet extends BaseEntity {
+	@ManyToOne
+	@JoinColumn(name = "pet_type_id")
 	private PetType petType;
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
 	private Owner owner;
-	private LocalDate birthday;
+	@Column(name = "birth_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate birthDate;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
+	private Set<Visit> visits = new HashSet<>();
+
+	public Pet(long id, PetType petType, Owner owner, LocalDate birthDate, Set<Visit> visits) {
+		super(id);
+		this.petType = petType;
+		this.owner = owner;
+		this.birthDate = birthDate;
+		this.visits = visits;
+	}
+
 }

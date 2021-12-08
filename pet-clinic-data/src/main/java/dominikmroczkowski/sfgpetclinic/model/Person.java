@@ -1,16 +1,16 @@
 package dominikmroczkowski.sfgpetclinic.model;
 
-public class Person {
-	public String getLastName() {
-		return lastName;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
+import javax.persistence.MappedSuperclass;
+
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@MappedSuperclass
+public class Person extends BaseEntity {
+
+	public Person(long id, String firstName, String lastName) {
+		super(id);
 		this.firstName = firstName;
-	}
-	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
