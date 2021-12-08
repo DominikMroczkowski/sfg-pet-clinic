@@ -11,11 +11,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "pet_types")
-public class PetType extends BaseEntity {
-	public PetType(long id, String name) {
+@Table(name = "specialities")
+public class Speciality extends BaseEntity {
+	public Speciality(long id, String description) {
 		super(id);
-		this.name = name;
+		this.description = description;
 	}
-	private String name;
+	private String description;
 }
